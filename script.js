@@ -9,6 +9,10 @@ let gameState = {
     selectedQuestions: []
 };
 
+// Timer variables
+let timer;
+let timeLeft = 60;
+
 // DOM Elements
 const nextQuestionButton = document.getElementById('nextQuestionButton');
 
@@ -30,18 +34,18 @@ async function loadQuestions() {
         gameState.questions = data;
     } catch (error) {
         console.error('Error loading questions:', error);
-        alert('Failed to load questions. Using backup questions.');
+        alert('فشل في تحميل الأسئلة. سيتم استخدام الأسئلة الاحتياطية.');
         gameState.questions = backupQuestions;
     }
 }
 
 // Game Initialization
 async function startGame() {
-    const team1 = document.getElementById('team1Input').value.trim() || 'Team 1';
-    const team2 = document.getElementById('team2Input').value.trim() || 'Team 2';
+    const team1 = document.getElementById('team1Input').value.trim() || 'الفريق 1';
+    const team2 = document.getElementById('team2Input').value.trim() || 'الفريق 2';
 
     if (!team1 || !team2) {
-        alert('Please enter names for both teams!');
+        alert('يرجى إدخال أسماء كلا الفريقين!');
         return;
     }
 
@@ -84,11 +88,12 @@ function setupNewRound() {
     const currentQuestion = gameState.selectedQuestions[gameState.currentQuestionIndex];
     document.getElementById('question').textContent = currentQuestion.question;
     document.getElementById('questionCounter').textContent = 
-        `Question ${gameState.currentQuestionIndex + 1}/${gameState.selectedQuestions.length}`;
+        `السؤال ${gameState.currentQuestionIndex + 1}/${gameState.selectedQuestions.length}`;
 
     updateActiveTeamDisplay();
     togglePhaseDisplays();
     resetButtons();
+    startTimer(); // Start the timer for the new round
 }
 
 function updateActiveTeamDisplay() {
@@ -106,12 +111,35 @@ function togglePhaseDisplays() {
         gameState.currentPhase === 'guess' ? 'flex' : 'none';
 }
 
+// Timer Functions
+function startTimer() {
+    timeLeft = 60; // Reset the timer to 60 seconds
+    document.getElementById('timer').innerText = timeLeft;
+
+    timer = setInterval(() => {
+        timeLeft--;
+        document.getElementById('timer').innerText = timeLeft;
+
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            // Handle the end of the timer (e.g., move to the next question)
+            alert('انتهى الوقت!');
+            nextQuestion();
+        }
+    }, 1000);
+}
+
+function stopTimer() {
+    clearInterval(timer);
+}
+
 // Percentage Submission
 function submitPercentage() {
     gameState.currentPercentage = parseInt(document.getElementById('hiddenSlider').value);
     gameState.currentPhase = 'guess';
     updateActiveTeamDisplay();
     togglePhaseDisplays();
+    stopTimer(); // Stop the timer when percentage is submitted
 }
 
 // Guess Handling
@@ -156,15 +184,13 @@ function showResult(correctAnswer, points) {
     const resultDiv = document.getElementById('result');
     resultDiv.innerHTML = `
         <div class="result-message">
-            Correct answer: ${correctAnswer}%<br>
+            الإجابة الصحيحة: ${correctAnswer}%<br>
             ${gameState.teams[gameState.currentSetterIndex].name}: +${points.pointsSetting}<br>
             ${gameState.teams[gameState.currentGuesserIndex].name}: +${points.pointsGuessing}
         </div>
     `;
     resultDiv.className = 'result correct';
 }
-
-
 
 // Navigation
 function nextQuestion() {
@@ -273,7 +299,7 @@ function handleInput(e) {
 function endGame() {
     const [team1, team2] = gameState.teams;
     const winner = team1.score > team2.score ? team1.name : team2.name;
-    alert(`Game Over! Winner: ${winner}\nFinal Scores:\n${team1.name}: ${team1.score}\n${team2.name}: ${team2.score}`);
+    alert(`انتهت اللعبة! الفائز: ${winner}\nالنتائج النهائية:\n${team1.name}: ${team1.score}\n${team2.name}: ${team2.score}`);
     showScreen('mainMenu');
 }
 

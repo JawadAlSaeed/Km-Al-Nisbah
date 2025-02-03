@@ -1,50 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guesspionage - Team Battle</title>
+    <title>تخمين - معركة الفرق</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Main Menu -->
+    <!-- القائمة الرئيسية -->
     <div id="mainMenu" class="screen active-screen">
         <div class="game-container">
-            <h1>GUESSPIONAGE</h1>
-            <button onclick="showTeamSetup()">Start Game</button>
+            <h1>كم النسبة؟</h1>
+            <button onclick="showTeamSetup()">بدء اللعبة</button>
         </div>
     </div>
 
-    <!-- Team Setup -->
+    <!-- إعداد الفرق -->
     <div id="teamSetup" class="screen">
         <div class="game-container">
-            <h2>Enter Team Names</h2>
-            <input type="text" class="team-input" id="team1Input" placeholder="Team 1 Name">
-            <input type="text" class="team-input" id="team2Input" placeholder="Team 2 Name">
-            <button onclick="startGame()">Begin Battle!</button>
+            <h2>أدخل أسماء الفرق</h2>
+            <input type="text" class="team-input" id="team1Input" placeholder="اسم الفريق 1">
+            <input type="text" class="team-input" id="team2Input" placeholder="اسم الفريق 2">
+            <button onclick="startGame()">ابدأ المعركة!</button>
         </div>
     </div>
 
-    <!-- Game Screen -->
+    <!-- شاشة اللعبة -->
     <div id="gameScreen" class="screen">
         <div class="game-container">
             <div class="team-display">
                 <div class="team-card" id="team1Display">
                     <h3 id="team1Name"></h3>
-                    <div>Score: <span id="team1Score">0</span></div>
+                    <div>النقاط: <span id="team1Score">0</span></div>
                 </div>
                 <div class="team-card" id="team2Display">
                     <h3 id="team2Name"></h3>
-                    <div>Score: <span id="team2Score">0</span></div>
+                    <div>النقاط: <span id="team2Score">0</span></div>
                 </div>
             </div>
 
-            <!-- Question Counter -->
+            <!-- عرض المؤقت -->
+            <div id="timer">60</div>
+
+            <!-- عداد الأسئلة -->
             <div id="questionCounter" class="question-counter"></div>
 
             <div class="question" id="question"></div>
 
-            <!-- Percentage Selection Screen -->
+            <!-- شاشة اختيار النسبة -->
             <div id="percentageScreen">
                 <div class="meter-container">
                     <div class="meter-background"></div>
@@ -52,19 +55,20 @@
                     <div class="meter-thumb"></div>
                     <input type="range" id="hiddenSlider" min="0" max="100" value="50">
                 </div>
-                <button onclick="submitPercentage()">Lock In Percentage</button>
+                <button onclick="submitPercentage()">تأكيد النسبة</button>
             </div>
 
-            <!-- Higher/Lower Screen -->
+            <!-- شاشة أعلى/أقل -->
             <div id="choiceScreen" class="choice-buttons">
-                <div class="choice-button" onclick="submitGuess('higher')">HIGHER</div>
-                <div class="choice-button" onclick="submitGuess('lower')">LOWER</div>
+                <div class="choice-button" onclick="submitGuess('higher')">أعلى</div>
+                <div class="choice-button" onclick="submitGuess('lower')">أقل</div>
             </div>
-            <!-- Result and Next Question Button -->
+
+            <!-- النتيجة وزر السؤال التالي -->
             <div id="result" class="result">
-                <!-- Result message will be inserted here -->
+                <!-- سيتم إدراج رسالة النتيجة هنا -->
             </div>
-                <button id="nextQuestionButton" class="next-question-btn" onclick="nextQuestion()">Next Question</button>
+            <button id="nextQuestionButton" class="next-question-btn" onclick="nextQuestion()">السؤال التالي</button>
         </div>
     </div>
 
