@@ -1,0 +1,194 @@
+Game Design Document (GDD) for Guesspionage: Percentage Showdown
+Last Updated: [Date]
+Version: 1.0
+
+1. Game Overview
+Objective: Players compete to guess the percentage of survey respondents who answered a quirky or unexpected question (e.g., “What percentage of people have lied about their birthday?”). The closer the guess to the actual percentage, the more points earned. The player with the highest score after three rounds wins.
+
+Target Audience: Casual gamers, families, trivia enthusiasts (ages 12+).
+Platforms: PC, consoles (Switch, PlayStation, Xbox), mobile (iOS/Android).
+Key Features:
+
+Single-player and multiplayer modes (1–4 players, local/online).
+
+500+ survey questions across categories (e.g., “Embarrassing Habits,” “Weird Food Combos”).
+
+Dynamic percentage-guessing mechanics with a sliding scale.
+
+Bonus “Risk Round” for high-stakes scoring.
+
+Customizable avatars and unlockable themes.
+
+2. Gameplay Mechanics
+Core Loop:
+Round Setup:
+
+Each round presents a new survey question.
+
+Players input their guess via a sliding percentage bar (0–100%).
+
+Reveal Phase:
+
+The correct percentage is unveiled on a large meter.
+
+Points awarded based on proximity:
+
+Bullseye (exact match): 100 pts.
+
+±5%: 50 pts.
+
+±10%: 25 pts.
+
+±20%: 10 pts.
+
+Beyond 20%: 0 pts.
+
+Risk Round (Final Round):
+
+Players wager their accumulated points on one final question.
+
+Correct guess within ±10% doubles their wager; incorrect guess loses it.
+
+Special Mechanics:
+Power-Ups (earned via streaks):
+
+Hint: Narrow the range (e.g., “The answer is between 30–60%”).
+
+Double Points: Next correct guess awards 2x points.
+
+Streak Bonuses: Consecutive bullseyes grant bonus multipliers.
+
+3. User Interface (UI)
+Main Screen:
+
+Central question display.
+
+Percentage slider with tactile feedback (e.g., haptic vibrations).
+
+Player scoreboards and avatars.
+
+Meter Animation:
+
+A spinning wheel or vertical meter highlights the correct percentage.
+
+Color-coded zones (green = high points, red = low).
+
+Post-Guess Summary:
+
+Comparison of player guesses vs. correct answer.
+
+Cumulative score updates.
+
+Accessibility: Subtitles, adjustable UI scale, and colorblind-friendly palettes.
+
+4. Art & Visual Style
+Style: Modern, minimalist game-show aesthetic with playful neon accents.
+Assets:
+
+Stage Design: Futuristic studio with LED screens, animated confetti.
+
+Avatars: Cartoonish, customizable characters (outfits, accessories).
+
+Answer Meter: A dynamic, glowing wheel or vertical bar.
+
+Themes: Unlockable backdrops (e.g., “Retro Arcade,” “Space Station”).
+
+5. Sound Design
+Music:
+
+Upbeat intro theme, suspenseful stings during reveals.
+
+Victory fanfare for winners.
+
+SFX:
+
+Whoosh for slider movement, ding for correct guesses, buzz for incorrect.
+
+Crowd gasps/cheers based on guess accuracy.
+
+Voice Acting:
+
+A charismatic host (e.g., “Lock in your guesses!”, “Let’s see the truth!”).
+
+6. Technical Specifications
+Engine: Unity (cross-platform support).
+
+Networking: Mirror Networking for smooth multiplayer sync.
+
+Database:
+
+Secure storage for survey data (real or fictional percentages).
+
+Regular question updates via patches.
+
+Save System: Progress tracking for unlocked content and high scores.
+
+7. Progression & Unlockables
+Levels: Earn XP by playing matches; level up to unlock:
+
+New avatar cosmetics (hats, outfits).
+
+Exclusive themes and soundtracks.
+
+Bonus question packs (e.g., “Holiday Edition”).
+
+Achievements:
+
+“Mind Reader” (10 bullseyes in a row).
+
+“Risk Taker” (win a Risk Round with a 90%+ wager).
+
+8. Testing Plan
+Phase 1: Core mechanics (slider accuracy, scoring logic).
+
+Phase 2: Multiplayer stability (latency, desync issues).
+
+Phase 3: UI/UX polish (intuitive controls, visual clarity).
+
+Post-Launch:
+
+Monthly question packs.
+
+Balance tweaks based on player feedback.
+
+9. Monetization
+Free-to-Play:
+
+Ad-supported (30-second ads between rounds).
+
+Optional rewarded ads for hints.
+
+In-App Purchases:
+
+Cosmetic bundles (
+1.99
+–
+1.99–9.99).
+
+Question packs (
+0.99
+–
+0.99–2.99).
+
+Premium Pass: $14.99 for ad-free gameplay + exclusive content.
+
+10. Appendices
+Sample Questions:
+
+“What percentage of people have pretended to know a celebrity?”
+
+“What percentage of pet owners have dressed their pet in costumes?”
+
+Mockups: UI wireframes, stage designs.
+
+Legal: Disclaimer stating fictional survey data; no affiliation with real surveys.
+
+Approvals:
+
+Lead Designer: [Name]
+
+Sound Engineer: [Name]
+
+QA Lead: [Name]
+
+This GDD outlines a fast-paced, socially engaging party game that combines trivia, strategy, and humor, ideal for both casual play and competitive leaderboard climbing.
