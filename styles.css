@@ -229,3 +229,57 @@ button:hover {
     transform: translateX(-50%);
     animation: fadeIn 0.3s ease;
 }
+
+/* Font Stuff*/
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Zain", serif; 
+}
+
+    .zain-extralight {
+        font-family: "Zain", serif;
+        font-weight: 200;
+        font-style: normal;
+    }
+    
+    .zain-light {
+        font-family: "Zain", serif;
+        font-weight: 300;
+        font-style: normal;
+    }
+    
+    .zain-regular {
+        font-family: "Zain", serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+    
+    .zain-bold {
+        font-family: "Zain", serif;
+        font-weight: 700;
+        font-style: normal;
+    }
+    
+    .zain-extrabold {
+        font-family: "Zain", serif;
+        font-weight: 800;
+        font-style: normal;
+    }
+    
+    .zain-black {
+        font-family: "Zain", serif;
+        font-weight: 900;
+        font-style: normal;
+    }
+    
+    .zain-light-italic {
+        font-family: "Zain", serif;
+        font-weight: 300;
+        font-style: italic;
+    }
+    
+    .zain-regular-italic {
+        font-family: "Zain", serif;
+        font-weight: 400;
+        font-style: italic;
+    }
+  
