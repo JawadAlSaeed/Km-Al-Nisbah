@@ -1,0 +1,15 @@
+Fonts
+Lalezar
+Marhey
+Mplus 1p Bold
+Ruwudu
+Zain (used)
+Solway (used for %)
+
+Color palate 1:
+
+Light Green: #2ECC71
+Dark Blue: #2C3E50
+Cyan: #99F8FF
+
+
