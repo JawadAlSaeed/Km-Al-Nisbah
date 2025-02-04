@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
+    <style>
+        body {
+            background-image: url('Background.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            font-family: 'Zain'; /* Apply Google Font */
+        }
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- اللوقو -->
@@ -12,16 +22,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
-    <style>
-        body {
-            background-image: url('Background.png');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-position: center;
-            font-family: 'Zain'; /* Apply Google Font */
-        }
-    </style>
     <title>كم النسبة؟</title>
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -29,7 +29,8 @@
     <!-- القائمة الرئيسية -->
     <div id="mainMenu" class="screen active-screen">
         <div class="game-container">
-            <h1>كم النسبة؟</h1>
+            <img src="logo.png" alt="كم النسبة؟" class="logo">
+            <ol></ol>
             <button onclick="showTeamSetup()">بدء اللعبة</button>
         </div>
     </div>
@@ -37,6 +38,8 @@
     <!-- إعداد الفرق -->
     <div id="teamSetup" class="screen">
         <div class="game-container">
+            <img src="logo.png" alt="كم النسبة؟" class="logo">
+            <ol></ol>
             <h2>أدخل أسماء الفرق</h2>
             <input type="text" class="team-input" id="team1Input" placeholder="اسم الفريق 1">
             <input type="text" class="team-input" id="team2Input" placeholder="اسم الفريق 2">
@@ -44,9 +47,20 @@
         </div>
     </div>
 
+    <!-- Add this after team setup screen 
+    <div id="categorySelection" class="screen">
+        <div class="game-container">
+            <h2>اختر 3 فئات</h2>
+            <div class="category-grid" id="categoryList"></div>
+            <button onclick="startRound()" class="confirm-categories">تأكيد الفئات</button>
+        </div>
+    </div>
+-->
     <!-- شاشة اللعبة -->
     <div id="gameScreen" class="screen">
         <div class="game-container">
+            <img src="logo.png" alt="كم النسبة؟" class="logo">
+            <ol></ol>
             <div class="team-display">
                 <div class="team-card" id="team1Display">
                     <h3 id="team1Name"></h3>
