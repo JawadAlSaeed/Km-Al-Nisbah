@@ -7,7 +7,7 @@ let gameState = {
     currentPercentage: 50,
     questions: [],
     selectedQuestions: [],
-    selectedCategory: null // Add this line to track the selected category
+    selectedCategories: [] // Track selected categories
 };
 
 // Timer variables
@@ -43,11 +43,18 @@ async function loadCategories() {
         categoryList.innerHTML = ''; // Clear existing categories
 
         categories.forEach(category => {
-            const categoryButton = document.createElement('div');
-            categoryButton.className = 'category-item';
-            categoryButton.textContent = category;
-            categoryButton.onclick = () => selectCategory(category);
-            categoryList.appendChild(categoryButton);
+            const categoryItem = document.createElement('div');
+            categoryItem.className = 'category-item';
+            categoryItem.textContent = category;
+
+            // Add a checkbox for multiple selection
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.value = category;
+            checkbox.onchange = () => toggleCategorySelection(category, checkbox.checked);
+            categoryItem.appendChild(checkbox);
+
+            categoryList.appendChild(categoryItem);
         });
     } catch (error) {
         console.error('Error loading categories:', error);
@@ -55,9 +62,12 @@ async function loadCategories() {
     }
 }
 
-function selectCategory(category) {
-    gameState.selectedCategory = category;
-    showTeamSetup();
+function toggleCategorySelection(category, isSelected) {
+    if (isSelected) {
+        gameState.selectedCategories.push(category);
+    } else {
+        gameState.selectedCategories = gameState.selectedCategories.filter(cat => cat !== category);
+    }
 }
 
 // Question Loading
@@ -66,10 +76,10 @@ async function loadQuestions() {
         const response = await fetch('questions.json');
         const data = await response.json();
 
-        // Filter questions by selected category
-        gameState.questions = gameState.selectedCategory
-            ? data.filter(q => q.category === gameState.selectedCategory)
-            : data; // If no category is selected, use all questions
+        // Filter questions by selected categories or use all questions
+        gameState.questions = gameState.selectedCategories.length > 0
+            ? data.filter(q => gameState.selectedCategories.includes(q.category))
+            : data; // If no categories are selected, use all questions
     } catch (error) {
         console.error('Error loading questions:', error);
         alert('فشل في تحميل الأسئلة. سيتم استخدام الأسئلة الاحتياطية.');
@@ -114,6 +124,21 @@ function resetGameState() {
     gameState.currentSetterIndex = 0;
     gameState.currentGuesserIndex = 1;
     updateMeter(50);
+}
+
+// Random Game Option
+function startRandomGame() {
+    gameState.selectedCategories = []; // No specific categories selected
+    showTeamSetup();
+}
+
+// Start Game with Selected Categories
+function startGameWithSelectedCategories() {
+    if (gameState.selectedCategories.length === 0) {
+        alert('يرجى اختيار فئة واحدة على الأقل!');
+        return;
+    }
+    showTeamSetup();
 }
 
 // Game Logic

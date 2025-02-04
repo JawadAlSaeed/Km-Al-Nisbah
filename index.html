@@ -30,8 +30,9 @@
     <div id="mainMenu" class="screen active-screen">
         <div class="game-container">
             <img src="logo.png" alt="كم النسبة؟" class="logo">
-            <ol></ol>
-            <button onclick="showCategorySelection()">بدء اللعبة</button>
+            <h2>اختر طريقة اللعب</h2>
+            <button onclick="startRandomGame()">أسئلة عشوائية</button>
+            <button onclick="showCategorySelection()">اختيار الفئات</button>
         </div>
     </div>
 
@@ -39,8 +40,9 @@
     <div id="categorySelection" class="screen">
         <div class="game-container">
             <img src="logo.png" alt="كم النسبة؟" class="logo">
-            <h2>اختر فئة الأسئلة</h2>
+            <h2>اختر الفئات المفضلة لديك</h2>
             <div id="categoryList" class="category-list"></div>
+            <button onclick="startGameWithSelectedCategories()">ابدأ اللعبة</button>
         </div>
     </div>
 
