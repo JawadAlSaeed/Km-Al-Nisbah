@@ -230,56 +230,39 @@ button:hover {
     animation: fadeIn 0.3s ease;
 }
 
-/* Font Stuff*/
-h1, h2, h3, h4, h5, h6 {
-    font-family: "Zain", serif; 
+body {
+    background-image: url('Background.png');
+    background-repeat: round;
 }
 
-    .zain-extralight {
-        font-family: "Zain", serif;
-        font-weight: 200;
-        font-style: normal;
-    }
-    
-    .zain-light {
-        font-family: "Zain", serif;
-        font-weight: 300;
-        font-style: normal;
-    }
-    
-    .zain-regular {
-        font-family: "Zain", serif;
-        font-weight: 400;
-        font-style: normal;
-    }
-    
-    .zain-bold {
-        font-family: "Zain", serif;
-        font-weight: 700;
-        font-style: normal;
-    }
-    
-    .zain-extrabold {
-        font-family: "Zain", serif;
-        font-weight: 800;
-        font-style: normal;
-    }
-    
-    .zain-black {
-        font-family: "Zain", serif;
-        font-weight: 900;
-        font-style: normal;
-    }
-    
-    .zain-light-italic {
-        font-family: "Zain", serif;
-        font-weight: 300;
-        font-style: italic;
-    }
-    
-    .zain-regular-italic {
-        font-family: "Zain", serif;
-        font-weight: 400;
-        font-style: italic;
-    }
-  
+* {
+    font-size: 100%;
+    font-family: 'Zain';
+   }
+
+   /* Category Selection */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.category-card {
+    background: #3a4b5e;
+    padding: 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.category-card.selected {
+    background: #2ecc71;
+    box-shadow: 0 0 15px rgba(46, 204, 113, 0.5);
+}
+
+.confirm-categories {
+    background: #3498db;
+    margin-top: 2rem;
+}
