@@ -31,7 +31,16 @@
         <div class="game-container">
             <img src="logo.png" alt="كم النسبة؟" class="logo">
             <ol></ol>
-            <button onclick="showTeamSetup()">بدء اللعبة</button>
+            <button onclick="showCategorySelection()">بدء اللعبة</button>
+        </div>
+    </div>
+
+    <!-- Category Selection Screen -->
+    <div id="categorySelection" class="screen">
+        <div class="game-container">
+            <img src="logo.png" alt="كم النسبة؟" class="logo">
+            <h2>اختر فئة الأسئلة</h2>
+            <div id="categoryList" class="category-list"></div>
         </div>
     </div>
 
@@ -47,15 +56,6 @@
         </div>
     </div>
 
-    <!-- Add this after team setup screen 
-    <div id="categorySelection" class="screen">
-        <div class="game-container">
-            <h2>اختر 3 فئات</h2>
-            <div class="category-grid" id="categoryList"></div>
-            <button onclick="startRound()" class="confirm-categories">تأكيد الفئات</button>
-        </div>
-    </div>
--->
     <!-- شاشة اللعبة -->
     <div id="gameScreen" class="screen">
         <div class="game-container">

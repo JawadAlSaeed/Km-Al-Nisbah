@@ -6,7 +6,8 @@ let gameState = {
     currentPhase: 'percentage',
     currentPercentage: 50,
     questions: [],
-    selectedQuestions: []
+    selectedQuestions: [],
+    selectedCategory: null // Add this line to track the selected category
 };
 
 // Timer variables
@@ -26,12 +27,49 @@ function showTeamSetup() {
     showScreen('teamSetup');
 }
 
+function showCategorySelection() {
+    showScreen('categorySelection');
+    loadCategories();
+}
+
+// Category Loading
+async function loadCategories() {
+    try {
+        const response = await fetch('questions.json');
+        const data = await response.json();
+        const categories = [...new Set(data.map(q => q.category))]; // Extract unique categories
+
+        const categoryList = document.getElementById('categoryList');
+        categoryList.innerHTML = ''; // Clear existing categories
+
+        categories.forEach(category => {
+            const categoryButton = document.createElement('div');
+            categoryButton.className = 'category-item';
+            categoryButton.textContent = category;
+            categoryButton.onclick = () => selectCategory(category);
+            categoryList.appendChild(categoryButton);
+        });
+    } catch (error) {
+        console.error('Error loading categories:', error);
+        alert('فشل في تحميل الفئات.');
+    }
+}
+
+function selectCategory(category) {
+    gameState.selectedCategory = category;
+    showTeamSetup();
+}
+
 // Question Loading
 async function loadQuestions() {
     try {
         const response = await fetch('questions.json');
         const data = await response.json();
-        gameState.questions = data;
+
+        // Filter questions by selected category
+        gameState.questions = gameState.selectedCategory
+            ? data.filter(q => q.category === gameState.selectedCategory)
+            : data; // If no category is selected, use all questions
     } catch (error) {
         console.error('Error loading questions:', error);
         alert('فشل في تحميل الأسئلة. سيتم استخدام الأسئلة الاحتياطية.');
@@ -285,10 +323,10 @@ function handleDragEnd() {
 
 function handleInput(e) {
     const rect = container.getBoundingClientRect();
-    const centerX = rect.left + rect.width/2;
-    const centerY = rect.top + rect.height/2;
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
     const angle = Math.atan2(e.clientY - centerY, e.clientX - centerX);
-    let deg = ((angle * (180/Math.PI) + 450) % 360 + 360) % 360;
+    let deg = ((angle * (180 / Math.PI) + 450) % 360 + 360) % 360;
     let value = Math.min(100, Math.max(0, Math.round(deg * 100 / 360)));
     
     slider.value = value;
@@ -307,4 +345,20 @@ function endGame() {
 updateMeter(50);
 
 // Backup Questions
-const backupQuestions = [ /* Your question data from questions.json */ ];
+const backupQuestions = [
+    {
+        "question": "ما نسبة الناس الذين يفضلون الشاي على القهوة؟",
+        "answer": 60,
+        "category": "أطعمة ومشروبات"
+    },
+    {
+        "question": "ما نسبة السيارات الكهربائية في العالم؟",
+        "answer": 2,
+        "category": "تكنولوجيا"
+    },
+    {
+        "question": "ما نسبة الأشخاص الذين يمارسون الرياضة يوميًا؟",
+        "answer": 15,
+        "category": "صحة"
+    }
+];

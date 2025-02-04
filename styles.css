@@ -239,30 +239,26 @@ body {
     font-size: 100%;
     font-family: 'Zain';
    }
-
-   /* Category Selection */
-.category-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+/* Category List Styles */
+.category-list {
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
     margin: 2rem 0;
 }
 
-.category-card {
+.category-item {
     background: #3a4b5e;
     padding: 1rem;
-    border-radius: 10px;
+    border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
     text-align: center;
+    font-size: 1.2rem;
 }
 
-.category-card.selected {
+.category-item:hover {
+    transform: scale(1.05);
     background: #2ecc71;
-    box-shadow: 0 0 15px rgba(46, 204, 113, 0.5);
-}
-
-.confirm-categories {
-    background: #3498db;
-    margin-top: 2rem;
+    color: white;
 }
