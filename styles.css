@@ -208,25 +208,37 @@ button:hover {
     margin-bottom: 1rem;
 }
 
+/* Result Styles */
 .result {
-    position: relative; /* Add this */
+    position: relative;
     margin: 1.5rem 0;
     padding: 1rem;
     border-radius: 10px;
     font-size: 1.1rem;
-    min-height: 120px; /* Ensure space for button */
+    min-height: 120px; /* Ensure space for the summary */
 }
 
 .result-message {
     margin-bottom: 15px;
 }
 
+/* Next Question Button */
+.next-question-btn {
+    display: none;
+    margin: 20px auto 0; /* Add margin to separate from the result */
+    padding: 12px 24px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
 .next-question-btn.visible {
     display: block;
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
+    position: static; /* Remove absolute positioning */
     animation: fadeIn 0.3s ease;
 }
 
@@ -312,3 +324,4 @@ body {
     top: 50%;
     transform: translateY(-50%);
 }
+

@@ -7,12 +7,13 @@ let gameState = {
     currentPercentage: 50,
     questions: [],
     selectedQuestions: [],
-    selectedCategories: [] // Track selected categories
+    selectedCategories: [], // Track selected categories
+    difficulty: 'medium' // Add difficulty level
 };
 
 // Timer variables
 let timer;
-let timeLeft = 60;
+let timeLeft = 30; // Changed from 60 to 30 seconds
 
 // DOM Elements
 const nextQuestionButton = document.getElementById('nextQuestionButton');
@@ -53,6 +54,18 @@ async function loadCategories() {
             checkbox.value = category;
             checkbox.onchange = () => toggleCategorySelection(category, checkbox.checked);
             categoryItem.appendChild(checkbox);
+
+            // Add category preview on hover
+            categoryItem.addEventListener('mouseenter', async () => {
+                try {
+                    const response = await fetch('questions.json');
+                    const data = await response.json();
+                    const previewQuestions = data.filter(q => q.category === category).slice(0, 3); // Show 3 questions
+                    categoryItem.title = previewQuestions.map(q => q.question).join('\n');
+                } catch (error) {
+                    console.error('Error loading category preview:', error);
+                }
+            });
 
             categoryList.appendChild(categoryItem);
         });
@@ -156,15 +169,22 @@ function setupNewRound() {
     updateActiveTeamDisplay();
     togglePhaseDisplays();
     resetButtons();
-    startTimer(); // Start the timer for the new round
+    stopTimer(); // Ensure no lingering timer from the previous round
+    startTimer(); // Start a fresh timer for the new round
 }
 
 function updateActiveTeamDisplay() {
     document.querySelectorAll('.team-card').forEach(card => card.classList.remove('active-team'));
-    const activeTeamId = gameState.currentPhase === 'percentage' ? 
-        `team${gameState.currentSetterIndex + 1}Display` : 
-        `team${gameState.currentGuesserIndex + 1}Display`;
+    const activeTeamId = gameState.currentPhase === 'percentage' 
+        ? `team${gameState.currentSetterIndex + 1}Display` 
+        : `team${gameState.currentGuesserIndex + 1}Display`;
     document.getElementById(activeTeamId).classList.add('active-team');
+
+    // Add a message indicating the active team's role
+    const phaseMessage = gameState.currentPhase === 'percentage'
+        ? `${gameState.teams[gameState.currentSetterIndex].name} يحدد النسبة`
+        : `${gameState.teams[gameState.currentGuesserIndex].name} يخمن الإجابة`;
+    document.getElementById('question').textContent = phaseMessage;
 }
 
 function togglePhaseDisplays() {
@@ -174,18 +194,32 @@ function togglePhaseDisplays() {
         gameState.currentPhase === 'guess' ? 'flex' : 'none';
 }
 
+
+
 // Timer Functions
 function startTimer() {
-    timeLeft = 60; // Reset the timer to 60 seconds
+    let timeLimit = 30; // Default time is now 30 seconds
+    if (gameState.difficulty === 'easy') {
+        timeLimit = 45; // Adjusted for easy difficulty
+    } else if (gameState.difficulty === 'hard') {
+        timeLimit = 20; // Adjusted for hard difficulty
+    }
+
+    timeLeft = timeLimit; // Reset the timer to the new time limit
     document.getElementById('timer').innerText = timeLeft;
+
+    stopTimer(); // Ensure any existing timer is cleared before starting a new one
 
     timer = setInterval(() => {
         timeLeft--;
         document.getElementById('timer').innerText = timeLeft;
 
+        if (timeLeft <= 10) {
+            playSoundEffect(); // Play sound effect when time is running out
+        }
+
         if (timeLeft <= 0) {
             clearInterval(timer);
-            // Handle the end of the timer (e.g., move to the next question)
             alert('انتهى الوقت!');
             nextQuestion();
         }
@@ -193,7 +227,12 @@ function startTimer() {
 }
 
 function stopTimer() {
-    clearInterval(timer);
+    clearInterval(timer); // Clear the timer to prevent multiple intervals
+}
+
+function playSoundEffect() {
+    const audio = new Audio('countdown.mp3'); // Path to your sound file
+    audio.play();
 }
 
 // Percentage Submission
@@ -202,7 +241,8 @@ function submitPercentage() {
     gameState.currentPhase = 'guess';
     updateActiveTeamDisplay();
     togglePhaseDisplays();
-    stopTimer(); // Stop the timer when percentage is submitted
+    stopTimer(); // Stop the previous timer
+    startTimer(); // Restart the timer for the "guess" phase
 }
 
 // Guess Handling
@@ -211,11 +251,13 @@ function submitGuess(choice) {
     const correctAnswer = currentQuestion.answer;
     const { setterTeam, guesserTeam } = getCurrentTeams();
 
-    disableChoiceButtons();
+    disableChoiceButtons(); // Disable buttons to prevent further input
+    stopTimer(); // Stop the timer immediately after the guess is submitted
+
     const points = calculatePoints(choice, correctAnswer, setterTeam, guesserTeam);
     updateScores();
     showResult(correctAnswer, points);
-    
+
     // Show next question button after 1 second
     setTimeout(() => {
         showNextQuestionButton();
@@ -234,8 +276,10 @@ function calculatePoints(choice, correctAnswer, setterTeam, guesserTeam) {
     const guessedValue = choice === 'higher' ? gameState.currentPercentage + 1 : gameState.currentPercentage - 1;
     const differenceGuessing = Math.abs(correctAnswer - guessedValue);
 
-    const pointsSetting = Math.max(0, 100 - differenceSetting);
-    const pointsGuessing = differenceGuessing < differenceSetting ? 50 : 0;
+    // Bonus for faster answers
+    const timeBonus = Math.floor(timeLeft / 10); // Bonus points based on remaining time
+    const pointsSetting = Math.max(0, 100 - differenceSetting) + timeBonus;
+    const pointsGuessing = differenceGuessing < differenceSetting ? 50 + timeBonus : 0;
 
     setterTeam.score += pointsSetting;
     guesserTeam.score += pointsGuessing;
@@ -259,12 +303,13 @@ function showResult(correctAnswer, points) {
 function nextQuestion() {
     gameState.currentQuestionIndex++;
     gameState.currentPhase = 'percentage';
-    
-    // Switch roles using destructuring
+
+    // Swap roles: current setter becomes guesser, and vice versa
     [gameState.currentSetterIndex, gameState.currentGuesserIndex] = 
         [gameState.currentGuesserIndex, gameState.currentSetterIndex];
 
     resetRoundState();
+    stopTimer(); // Stop the timer before setting up a new round
     setupNewRound();
 }
 
