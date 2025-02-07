@@ -179,12 +179,6 @@ function updateActiveTeamDisplay() {
         ? `team${gameState.currentSetterIndex + 1}Display` 
         : `team${gameState.currentGuesserIndex + 1}Display`;
     document.getElementById(activeTeamId).classList.add('active-team');
-
-    // Add a message indicating the active team's role
-    const phaseMessage = gameState.currentPhase === 'percentage'
-        ? `${gameState.teams[gameState.currentSetterIndex].name} يحدد النسبة`
-        : `${gameState.teams[gameState.currentGuesserIndex].name} يخمن الإجابة`;
-    document.getElementById('question').textContent = phaseMessage;
 }
 
 function togglePhaseDisplays() {
