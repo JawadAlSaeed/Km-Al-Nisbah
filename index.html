@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
+    <style>body {
+        background-image: url('Background.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+        font-family: 'Zain'; /* Apply Google Font */
+    }
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- اللوقو -->
@@ -20,7 +29,7 @@
     <div id="mainMenu" class="screen active-screen">
         <div class="game-container">
             <img src="logo.png" alt="كم النسبة؟" class="logo">
-            <h2>اختر طريقة اللعب</h2>
+            <h2 class="titles">اختر طريقة اللعب</h2>
             <button onclick="startRandomGame()">أسئلة عشوائية</button>
             <br>
             <button onclick="showCategorySelection()">اختيار الفئات</button>
@@ -31,7 +40,7 @@
     <div id="categorySelection" class="screen">
         <div class="game-container">
             <img src="logo.png" alt="كم النسبة؟" class="logo">
-            <h2>اختر الفئات المفضلة لديك</h2>
+            <h2 class="titles">اختر الفئات المفضلة لديك</h2>
             <div id="categoryList" class="category-list"></div>
             <button onclick="startGameWithSelectedCategories()">ابدأ اللعبة</button>
         </div>
@@ -42,7 +51,7 @@
         <div class="game-container">
             <img src="logo.png" alt="كم النسبة؟" class="logo">
             <ol></ol>
-            <h2>أدخل أسماء الفرق</h2>
+            <h2 class="titles">أدخل أسماء الفرق</h2>
             <input type="text" class="team-input" id="team1Input" placeholder="اسم الفريق 1">
             <input type="text" class="team-input" id="team2Input" placeholder="اسم الفريق 2">
             <button onclick="startGame()">ابدأ المعركة!</button>
@@ -71,7 +80,7 @@
             <!-- عداد الأسئلة -->
             <div id="questionCounter" class="question-counter"></div>
 
-            <div class="question" id="question"></div>
+            <div class="titles" class="question" id="question"></div>
 
             <!-- شاشة اختيار النسبة -->
             <div id="percentageScreen">

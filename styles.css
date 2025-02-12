@@ -325,11 +325,7 @@ body {
     transform: translateY(-50%);
 }
 
-body {
-    background-image: url('Background.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center;
-    font-family: 'Zain'; /* Apply Google Font */
+.titles {
+    font-size: 2.5rem;
+    margin: 1rem 0;
 }
