@@ -8,7 +8,7 @@
                 background-repeat: no-repeat;
                 background-attachment: fixed;
                 background-position: center;
-                font-family: 'Zain'; /* Apply Google Font */
+                font-family: 'Zain'; /* تطبيق خط جوجل */
             }
         </style>
         <meta charset="UTF-8">
@@ -26,56 +26,56 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        <!-- Main Menu Screen -->
-    <div id="mainMenu" class="screen active-screen">
-        <div class="game-container">
-            <img src="assets/logo.png" alt="كم النسبة؟" class="logo">
-            <h2 class="titles">مرحبًا بك في كم النسبة؟</h2>
-            <button onclick="showGameOptions()">ابدأ اللعبة 🎮</button><br>
-            <button onclick="showTutorial()">الدليل التعليمي 📚</button><br>
-            <button onclick="showAboutUs()">حول اللعبة ℹ️</button>
+        <!-- شاشة القائمة الرئيسية -->
+        <div id="mainMenu" class="screen active-screen">
+            <div class="game-container">
+                <img src="assets/logo.png" alt="كم النسبة؟" class="logo">
+                <h2 class="titles">مرحبًا بك في كم النسبة؟</h2>
+                <button onclick="showGameOptions()">ابدأ اللعبة 🎮</button><br>
+                <button onclick="showTutorial()">الدليل التعليمي 📚</button><br>
+                <button onclick="showAboutUs()">حول اللعبة ℹ️</button>
+            </div>
         </div>
-    </div>
 
-    <!-- Game Options Screen -->
-    <div id="gameOptions" class="screen">
-        <div class="game-container">
-            <img src="assets/logo.png" alt="كم النسبة؟" class="logo">
-            <h2 class="titles">اختر طريقة اللعب</h2>
-            <button onclick="startRandomGame()">أسئلة عشوائية 🎲</button><br>
-            <button onclick="showCategorySelection()">اختيار الفئات 📂</button><br>
-            <button onclick="returnToMainMenu()">العودة إلى القائمة الرئيسية</button>
+        <!-- شاشة خيارات اللعبة -->
+        <div id="gameOptions" class="screen">
+            <div class="game-container">
+                <img src="assets/logo.png" alt="كم النسبة؟" class="logo">
+                <h2 class="titles">اختر طريقة اللعب</h2>
+                <button onclick="startRandomGame()">أسئلة عشوائية 🎲</button><br>
+                <button onclick="showCategorySelection()">اختيار الفئات 📂</button><br>
+                <button onclick="returnToMainMenu()">العودة إلى القائمة الرئيسية</button>
+            </div>
         </div>
-    </div>
 
-    <!-- Tutorial Screen -->
-    <div id="tutorialScreen" class="screen">
-        <div class="game-container">
-            <img src="assets/logo.png" alt="كم النسبة؟" class="logo">
-            <h2 class="titles">دليل اللعبة</h2>
-            <p>في لعبة "كم النسبة؟"، يتم تحدي فريقين لتخمين نسبة الإجابة الصحيحة على أسئلة متنوعة.</p>
-            <p>1. الفريق الأول يختار نسبة الإجابة.</p>
-            <p>2. الفريق الثاني يخمن إذا كانت النسبة أعلى أم أقل من الإجابة الصحيحة.</p>
-            <p>3. يتغير ترتيب الفريق ليصبح الفريق الثاني يختار النسبة الصحيحة والفريق الاول يختار اذا كانت اعلى ام اقل.</p>
-            <p>4. الفريق الذي يحصل على أعلى النقاط يفوز!</p><br>
-            <button onclick="returnToMainMenu()">العودة إلى القائمة الرئيسية</button>
+        <!-- شاشة الدليل التعليمي -->
+        <div id="tutorialScreen" class="screen">
+            <div class="game-container">
+                <img src="assets/logo.png" alt="كم النسبة؟" class="logo">
+                <h2 class="titles">دليل اللعبة</h2>
+                <p>في لعبة "كم النسبة؟"، يتم تحدي فريقين لتخمين نسبة الإجابة الصحيحة على أسئلة متنوعة.</p>
+                <p>1. الفريق الأول يختار نسبة الإجابة.</p>
+                <p>2. الفريق الثاني يخمن إذا كانت النسبة أعلى أم أقل من الإجابة الصحيحة.</p>
+                <p>3. يتغير ترتيب الفريق ليصبح الفريق الثاني يختار النسبة الصحيحة والفريق الاول يختار اذا كانت اعلى ام اقل.</p>
+                <p>4. الفريق الذي يحصل على أعلى النقاط يفوز!</p><br>
+                <button onclick="returnToMainMenu()">العودة إلى القائمة الرئيسية</button>
+            </div>
         </div>
-    </div>
 
-    <!-- About Us Screen -->
-    <div id="aboutUsScreen" class="screen">
-        <div class="game-container">
-            <img src="assets/logo.png" alt="كم النسبة؟" class="logo">
-            <h2 class="titles">حول اللعبة</h2>
-            <p>لعبة "كم النسبة؟" هي لعبة تفاعلية ممتعة تستند إلى تخمين النسب الصحيحة للإجابات</p>
-            <p>تم تطويرها بواسطة فريقنا المبدع لتقديم تجربة مسلية ومليئة بالتحديات</p>
-            <p>جميع الكود البرمجي مكتوب بمساعدة الذكاء الصناعي</p>
-            <br>
-            <button onclick="returnToMainMenu()">العودة إلى القائمة الرئيسية</button>
+        <!-- شاشة حول اللعبة -->
+        <div id="aboutUsScreen" class="screen">
+            <div class="game-container">
+                <img src="assets/logo.png" alt="كم النسبة؟" class="logo">
+                <h2 class="titles">حول اللعبة</h2>
+                <p>لعبة "كم النسبة؟" هي لعبة تفاعلية ممتعة تستند إلى تخمين النسب الصحيحة للإجابات</p>
+                <p>تم تطويرها بواسطة فريقنا المبدع لتقديم تجربة مسلية ومليئة بالتحديات</p>
+                <p>جميع الكود البرمجي مكتوب بمساعدة الذكاء الصناعي</p>
+                <br>
+                <button onclick="returnToMainMenu()">العودة إلى القائمة الرئيسية</button>
+            </div>
         </div>
-    </div>
 
-        <!-- Category Selection Screen -->
+        <!-- شاشة اختيار الفئات -->
         <div id="categorySelection" class="screen">
             <div class="game-container">
                 <img src="assets/logo.png" alt="كم النسبة؟" class="logo">
@@ -152,7 +152,7 @@
                 <img src="assets/logo.png" alt="كم النسبة؟" class="logo">
                 <h2 class="titles">النتائج النهائية</h2>
                 <div id="finalResults" class="final-results">
-                    <!-- Final results will be displayed here -->
+                    <!-- سيتم عرض النتائج النهائية هنا -->
                 </div>
                 <button onclick="restartGame()">إعادة بدء اللعبة</button>
             </div>
