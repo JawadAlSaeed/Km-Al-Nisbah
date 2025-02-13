@@ -397,13 +397,42 @@ function handleInput(e) {
     updateMeter(value);
 }
 
+
 // End Game
 function endGame() {
     const [team1, team2] = gameState.teams;
-    const winner = team1.score > team2.score ? team1.name : team2.name;
-    alert(`انتهت اللعبة! الفائز: ${winner}\nالنتائج النهائية:\n${team1.name}: ${team1.score}\n${team2.name}: ${team2.score}`);
+    let winner = '';
+    let message = '';
+
+    if (team1.score > team2.score) {
+        winner = team1.name;
+        message = `تهانينا لفريق ${winner} على الفوز! 🎉`;
+    } else if (team2.score > team1.score) {
+        winner = team2.name;
+        message = `تهانينا لفريق ${winner} على الفوز! 🎉`;
+    } else {
+        message = 'تعادل! لا يوجد فائز. 👏';
+    }
+
+    // Display the final results on the end screen
+    const finalResultsDiv = document.getElementById('finalResults');
+    finalResultsDiv.innerHTML = `
+        <h3>${message}</h3>
+        <p>النتائج النهائية:</p>
+        <p>${team1.name}: ${team1.score} نقطة</p>
+        <p>${team2.name}: ${team2.score} نقطة</p>
+    `;
+
+    // Show the end screen
+    showScreen('endScreen');
+}
+
+// Restart Game
+function restartGame() {
+    resetGameState();
     showScreen('mainMenu');
 }
+
 
 // Initialize
 updateMeter(50);

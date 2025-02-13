@@ -329,3 +329,23 @@ body {
     font-size: 2.5rem;
     margin: 1rem 0;
 }
+
+/* End Result Screen Styles */
+.final-results {
+    margin: 2rem 0;
+    padding: 1rem;
+    border-radius: 10px;
+    background: #3a4b5e;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.final-results h3 {
+    font-size: 1.5rem;
+    color: #2ecc71;
+}
+
+.final-results p {
+    font-size: 1.2rem;
+    color: white;
+}
