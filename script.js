@@ -11,6 +11,37 @@ let gameState = {
     difficulty: 'medium' // إضافة مستوى الصعوبة
 };
 
+
+// Initialize the Game
+document.addEventListener('DOMContentLoaded', () => {
+    const splashScreen = document.getElementById('splashScreen');
+    const splashVideo = document.getElementById('splashVideo');
+
+    // Transition to the main menu when the video ends
+    splashVideo.addEventListener('ended', () => {
+        splashScreen.classList.remove('active-screen'); // Trigger fade-out
+        setTimeout(() => {
+            showScreen('mainMenu'); // Show main menu after fade-out
+        }, 500); // Match this delay with the CSS transition duration
+    });
+
+    // Optional: Fallback in case the video doesn't end properly
+    setTimeout(() => {
+        if (splashScreen.classList.contains('active-screen')) {
+            splashScreen.classList.remove('active-screen');
+            setTimeout(() => {
+                showScreen('mainMenu');
+            }, 500); // Match this delay with the CSS transition duration
+        }
+    }, 10000); // 10 seconds fallback (adjust based on your video length)
+});
+
+// إدارة الشاشات
+function showScreen(screenId) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active-screen'));
+    document.getElementById(screenId).classList.add('active-screen');
+}
+
 // متغيرات المؤقت
 let timer;
 let timeLeft = 30; // تغيير من 60 إلى 30 ثانية
