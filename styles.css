@@ -425,7 +425,7 @@ button[onclick="returnToMainMenu()"]:hover {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0.7); /* Scale down to 70% */
+    transform: translate(-50%, -50%) scale(2.5); /* Scale down to 70% */
     width: auto;
     height: auto;
     object-fit: cover;
