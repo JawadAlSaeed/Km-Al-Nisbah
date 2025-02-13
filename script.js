@@ -26,21 +26,25 @@ function showScreen(screenId) {
 
 // عرض شاشة خيارات اللعبة
 function showGameOptions() {
+    playSound('buttonClickSound'); // تشغيل صوت النقر على الزر
     showScreen('gameOptions');
 }
 
 // عرض شاشة الدليل التعليمي
 function showTutorial() {
+    playSound('buttonClickSound'); // تشغيل صوت النقر على الزر
     showScreen('tutorialScreen');
 }
 
 // عرض شاشة حول اللعبة
 function showAboutUs() {
+    playSound('buttonClickSound'); // تشغيل صوت النقر على الزر
     showScreen('aboutUsScreen');
 }
 
 // العودة إلى القائمة الرئيسية
 function returnToMainMenu() {
+    playSound('buttonClickSound'); // تشغيل صوت النقر على الزر
     showScreen('mainMenu');
 }
 
@@ -227,7 +231,7 @@ function startTimer() {
         document.getElementById('timer').innerText = timeLeft;
 
         if (timeLeft <= 10) {
-            playSoundEffect(); // تشغيل تأثير الصوت عند نفاد الوقت
+            playSound('timerTickingSound'); // تشغيل صوت المؤقت عند نفاد الوقت
         }
 
         if (timeLeft <= 0) {
@@ -242,13 +246,20 @@ function stopTimer() {
     clearInterval(timer); // مسح المؤقت لمنع الفواصل الزمنية المتعددة
 }
 
-function playSoundEffect() {
-    const audio = new Audio('countdown.mp3'); // مسار ملف الصوت الخاص بك
-    audio.play();
+// تشغيل صوت
+function playSound(soundId) {
+    const audio = document.getElementById(soundId);
+    if (audio) {
+        audio.currentTime = 0; // إعادة ضبط الصوت إلى البداية
+        audio.play().catch(error => {
+            console.error('خطأ في تشغيل الصوت:', error);
+        });
+    }
 }
 
 // تقديم النسبة
 function submitPercentage() {
+    playSound('buttonClickSound'); // تشغيل صوت النقر على الزر
     gameState.currentPercentage = parseInt(document.getElementById('hiddenSlider').value);
     gameState.currentPhase = 'guess';
     updateActiveTeamDisplay();
@@ -268,6 +279,13 @@ function submitGuess(choice) {
 
     const points = calculatePoints(choice, correctAnswer, setterTeam, guesserTeam);
     updateScores();
+
+    if (points.pointsGuessing > 0) {
+        playSound('correctGuessSound'); // تشغيل صوت الإجابة الصحيحة
+    } else {
+        playSound('wrongGuessSound'); // تشغيل صوت الإجابة الخاطئة
+    }
+
     showResult(correctAnswer, points);
 
     // عرض زر السؤال التالي بعد ثانية واحدة
@@ -440,12 +458,13 @@ function endGame() {
         <p>${team2.name}: ${team2.score} نقطة</p>
     `;
 
-    // عرض شاشة النهاية
+    playSound('gameEndSound'); // تشغيل صوت نهاية اللعبة
     showScreen('endScreen');
 }
 
 // إعادة بدء اللعبة
 function restartGame() {
+    playSound('buttonClickSound'); // تشغيل صوت النقر على الزر
     resetGameState();
     showScreen('mainMenu');
 }
