@@ -349,3 +349,38 @@ body {
     font-size: 1.2rem;
     color: white;
 }
+
+/* Main Menu Styles */
+#mainMenu button {
+    margin: 1rem 0;
+    padding: 1rem 2rem;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: transform 0.2s ease;
+}
+
+#mainMenu button:hover {
+    transform: scale(1.05);
+}
+
+/* Tutorial and About Us Styles */
+#tutorialScreen p, #aboutUsScreen p {
+    font-size: 1.1rem;
+    text-align: center;
+    margin: 1rem 0;
+    color: #ecf0f1;
+}
+
+/* Back Button Styles */
+button[onclick="returnToMainMenu()"] {
+    background: #e74c3c;
+    margin-top: 2rem;
+}
+
+button[onclick="returnToMainMenu()"]:hover {
+    background: #c0392b;
+}

@@ -24,6 +24,27 @@ function showScreen(screenId) {
     document.getElementById(screenId).classList.add('active-screen');
 }
 
+
+// Show Game Options Screen
+function showGameOptions() {
+    showScreen('gameOptions');
+}
+
+// Show Tutorial Screen
+function showTutorial() {
+    showScreen('tutorialScreen');
+}
+
+// Show About Us Screen
+function showAboutUs() {
+    showScreen('aboutUsScreen');
+}
+
+// Return to Main Menu
+function returnToMainMenu() {
+    showScreen('mainMenu');
+}
+
 function showTeamSetup() {
     showScreen('teamSetup');
 }
@@ -396,7 +417,6 @@ function handleInput(e) {
     slider.value = value;
     updateMeter(value);
 }
-
 
 // End Game
 function endGame() {
