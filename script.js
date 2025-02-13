@@ -57,7 +57,7 @@ function showCategorySelection() {
 // Category Loading
 async function loadCategories() {
     try {
-        const response = await fetch('questions.json');
+        const response = await fetch('config/questions.json');
         const data = await response.json();
         const categories = [...new Set(data.map(q => q.category))]; // Extract unique categories
 
@@ -79,7 +79,7 @@ async function loadCategories() {
             // Add category preview on hover
             categoryItem.addEventListener('mouseenter', async () => {
                 try {
-                    const response = await fetch('questions.json');
+                    const response = await fetch('config/questions.json');
                     const data = await response.json();
                     const previewQuestions = data.filter(q => q.category === category).slice(0, 3); // Show 3 questions
                     categoryItem.title = previewQuestions.map(q => q.question).join('\n');
@@ -107,7 +107,7 @@ function toggleCategorySelection(category, isSelected) {
 // Question Loading
 async function loadQuestions() {
     try {
-        const response = await fetch('questions.json');
+        const response = await fetch('config/questions.json');
         const data = await response.json();
 
         // Filter questions by selected categories or use all questions

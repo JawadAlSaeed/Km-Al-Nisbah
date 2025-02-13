@@ -1,162 +1,163 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<head>
-    <style>body {
-        background-image: url('Background.png');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-position: center;
-        font-family: 'Zain'; /* Apply Google Font */
-    }
-    </style>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- اللوقو -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
-    <!-- الخط -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
-    <title>كم النسبة؟</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <!-- Main Menu Screen -->
-<div id="mainMenu" class="screen active-screen">
-    <div class="game-container">
-        <img src="logo.png" alt="كم النسبة؟" class="logo">
-        <h2 class="titles">مرحبًا بك في كم النسبة؟</h2>
-        <button onclick="showGameOptions()">ابدأ اللعبة 🎮</button><br>
-        <button onclick="showTutorial()">الدليل التعليمي 📚</button><br>
-        <button onclick="showAboutUs()">حول اللعبة ℹ️</button>
-    </div>
-</div>
-
-<!-- Game Options Screen -->
-<div id="gameOptions" class="screen">
-    <div class="game-container">
-        <img src="logo.png" alt="كم النسبة؟" class="logo">
-        <h2 class="titles">اختر طريقة اللعب</h2>
-        <button onclick="startRandomGame()">أسئلة عشوائية 🎲</button><br>
-        <button onclick="showCategorySelection()">اختيار الفئات 📂</button><br>
-        <button onclick="returnToMainMenu()">العودة إلى القائمة الرئيسية</button>
-    </div>
-</div>
-
-<!-- Tutorial Screen -->
-<div id="tutorialScreen" class="screen">
-    <div class="game-container">
-        <img src="logo.png" alt="كم النسبة؟" class="logo">
-        <h2 class="titles">دليل اللعبة</h2>
-        <p>في لعبة "كم النسبة؟"، يتم تحدي فريقين لتخمين نسبة الإجابة الصحيحة على أسئلة متنوعة.</p>
-        <p>1. الفريق الأول يختار نسبة الإجابة.</p>
-        <p>2. الفريق الثاني يخمن إذا كانت النسبة أعلى أم أقل من الإجابة الصحيحة.</p>
-        <p>3. يتغير ترتيب الفريق ليصبح الفريق الثاني يختار النسبة الصحيحة والفريق الاول يختار اذا كانت اعلى ام اقل.</p>
-        <p>3. الفريق الذي يحصل على أعلى النقاط يفوز!</p><br>
-        <button onclick="returnToMainMenu()">العودة إلى القائمة الرئيسية</button>
-    </div>
-</div>
-
-<!-- About Us Screen -->
-<div id="aboutUsScreen" class="screen">
-    <div class="game-container">
-        <img src="logo.png" alt="كم النسبة؟" class="logo">
-        <h2 class="titles">حول اللعبة</h2>
-        <p>لعبة "كم النسبة؟" هي لعبة تفاعلية ممتعة تستند إلى تخمين النسب الصحيحة للإجابات</p>
-        <p>تم تطويرها بواسطة فريقنا المبدع لتقديم تجربة مسلية ومليئة بالتحديات</p>
-        <p>جميع الكود البرمجي مكتوب بمساعدة الذكاء الصناعي</p>
-        <br>
-        <button onclick="returnToMainMenu()">العودة إلى القائمة الرئيسية</button>
-    </div>
-</div>
-
-    <!-- Category Selection Screen -->
-    <div id="categorySelection" class="screen">
+    <head>
+        <style>
+            body {
+                background-image: url('assets/Background.png');
+                background-size: cover;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-position: center;
+                font-family: 'Zain'; /* Apply Google Font */
+            }
+        </style>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- اللوقو -->
+        <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <!-- الخط -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&display=swap" rel="stylesheet">
+        <title>كم النسبة؟</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <!-- Main Menu Screen -->
+    <div id="mainMenu" class="screen active-screen">
         <div class="game-container">
-            <img src="logo.png" alt="كم النسبة؟" class="logo">
-            <h2 class="titles">اختر الفئات المفضلة لديك</h2>
-            <div id="categoryList" class="category-list"></div>
-            <button onclick="startGameWithSelectedCategories()">ابدأ اللعبة</button>
+            <img src="assets/logo.png" alt="كم النسبة؟" class="logo">
+            <h2 class="titles">مرحبًا بك في كم النسبة؟</h2>
+            <button onclick="showGameOptions()">ابدأ اللعبة 🎮</button><br>
+            <button onclick="showTutorial()">الدليل التعليمي 📚</button><br>
+            <button onclick="showAboutUs()">حول اللعبة ℹ️</button>
         </div>
     </div>
 
-    <!-- إعداد الفرق -->
-    <div id="teamSetup" class="screen">
+    <!-- Game Options Screen -->
+    <div id="gameOptions" class="screen">
         <div class="game-container">
-            <img src="logo.png" alt="كم النسبة؟" class="logo">
-            <ol></ol>
-            <h2 class="titles">أدخل أسماء الفرق</h2>
-            <input type="text" class="team-input" id="team1Input" placeholder="اسم الفريق 1">
-            <input type="text" class="team-input" id="team2Input" placeholder="اسم الفريق 2">
-            <button onclick="startGame()">ابدأ المعركة!</button>
+            <img src="assets/logo.png" alt="كم النسبة؟" class="logo">
+            <h2 class="titles">اختر طريقة اللعب</h2>
+            <button onclick="startRandomGame()">أسئلة عشوائية 🎲</button><br>
+            <button onclick="showCategorySelection()">اختيار الفئات 📂</button><br>
+            <button onclick="returnToMainMenu()">العودة إلى القائمة الرئيسية</button>
         </div>
     </div>
 
-    <!-- شاشة اللعبة -->
-    <div id="gameScreen" class="screen">
+    <!-- Tutorial Screen -->
+    <div id="tutorialScreen" class="screen">
         <div class="game-container">
-            <img src="logo.png" alt="كم النسبة؟" class="logo">
-            <ol></ol>
-            <div class="team-display">
-                <div class="team-card" id="team1Display">
-                    <h3 id="team1Name"></h3>
-                    <div>النقاط: <span id="team1Score">0</span></div>
+            <img src="assets/logo.png" alt="كم النسبة؟" class="logo">
+            <h2 class="titles">دليل اللعبة</h2>
+            <p>في لعبة "كم النسبة؟"، يتم تحدي فريقين لتخمين نسبة الإجابة الصحيحة على أسئلة متنوعة.</p>
+            <p>1. الفريق الأول يختار نسبة الإجابة.</p>
+            <p>2. الفريق الثاني يخمن إذا كانت النسبة أعلى أم أقل من الإجابة الصحيحة.</p>
+            <p>3. يتغير ترتيب الفريق ليصبح الفريق الثاني يختار النسبة الصحيحة والفريق الاول يختار اذا كانت اعلى ام اقل.</p>
+            <p>4. الفريق الذي يحصل على أعلى النقاط يفوز!</p><br>
+            <button onclick="returnToMainMenu()">العودة إلى القائمة الرئيسية</button>
+        </div>
+    </div>
+
+    <!-- About Us Screen -->
+    <div id="aboutUsScreen" class="screen">
+        <div class="game-container">
+            <img src="assets/logo.png" alt="كم النسبة؟" class="logo">
+            <h2 class="titles">حول اللعبة</h2>
+            <p>لعبة "كم النسبة؟" هي لعبة تفاعلية ممتعة تستند إلى تخمين النسب الصحيحة للإجابات</p>
+            <p>تم تطويرها بواسطة فريقنا المبدع لتقديم تجربة مسلية ومليئة بالتحديات</p>
+            <p>جميع الكود البرمجي مكتوب بمساعدة الذكاء الصناعي</p>
+            <br>
+            <button onclick="returnToMainMenu()">العودة إلى القائمة الرئيسية</button>
+        </div>
+    </div>
+
+        <!-- Category Selection Screen -->
+        <div id="categorySelection" class="screen">
+            <div class="game-container">
+                <img src="assets/logo.png" alt="كم النسبة؟" class="logo">
+                <h2 class="titles">اختر الفئات المفضلة لديك</h2>
+                <div id="categoryList" class="category-list"></div>
+                <button onclick="startGameWithSelectedCategories()">ابدأ اللعبة</button>
+            </div>
+        </div>
+
+        <!-- إعداد الفرق -->
+        <div id="teamSetup" class="screen">
+            <div class="game-container">
+                <img src="assets/logo.png" alt="كم النسبة؟" class="logo">
+                <ol></ol>
+                <h2 class="titles">أدخل أسماء الفرق</h2>
+                <input type="text" class="team-input" id="team1Input" placeholder="اسم الفريق 1">
+                <input type="text" class="team-input" id="team2Input" placeholder="اسم الفريق 2">
+                <button onclick="startGame()">ابدأ المعركة!</button>
+            </div>
+        </div>
+
+        <!-- شاشة اللعبة -->
+        <div id="gameScreen" class="screen">
+            <div class="game-container">
+                <img src="assets/logo.png" alt="كم النسبة؟" class="logo">
+                <ol></ol>
+                <div class="team-display">
+                    <div class="team-card" id="team1Display">
+                        <h3 id="team1Name"></h3>
+                        <div>النقاط: <span id="team1Score">0</span></div>
+                    </div>
+                    <div class="team-card" id="team2Display">
+                        <h3 id="team2Name"></h3>
+                        <div>النقاط: <span id="team2Score">0</span></div>
+                    </div>
                 </div>
-                <div class="team-card" id="team2Display">
-                    <h3 id="team2Name"></h3>
-                    <div>النقاط: <span id="team2Score">0</span></div>
+
+                <!-- عرض المؤقت -->
+                <div id="timer">60</div>
+
+                <!-- عداد الأسئلة -->
+                <div id="questionCounter" class="question-counter"></div>
+
+                <div class="titles" class="question" id="question"></div>
+
+                <!-- شاشة اختيار النسبة -->
+                <div id="percentageScreen">
+                    <div class="meter-container">
+                        <div class="meter-background"></div>
+                        <div class="meter-center"><span id="percentage">50</span>%</div>
+                        <div class="meter-thumb"></div>
+                        <input type="range" id="hiddenSlider" min="0" max="100" value="50">
+                    </div>
+                    <button onclick="submitPercentage()">تأكيد النسبة</button>
                 </div>
-            </div>
 
-            <!-- عرض المؤقت -->
-            <div id="timer">60</div>
-
-            <!-- عداد الأسئلة -->
-            <div id="questionCounter" class="question-counter"></div>
-
-            <div class="titles" class="question" id="question"></div>
-
-            <!-- شاشة اختيار النسبة -->
-            <div id="percentageScreen">
-                <div class="meter-container">
-                    <div class="meter-background"></div>
-                    <div class="meter-center"><span id="percentage">50</span>%</div>
-                    <div class="meter-thumb"></div>
-                    <input type="range" id="hiddenSlider" min="0" max="100" value="50">
+                <!-- شاشة أعلى/أقل -->
+                <div id="choiceScreen" class="choice-buttons">
+                    <div class="choice-button" onclick="submitGuess('higher')">أعلى</div>
+                    <div class="choice-button" onclick="submitGuess('lower')">أقل</div>
                 </div>
-                <button onclick="submitPercentage()">تأكيد النسبة</button>
-            </div>
 
-            <!-- شاشة أعلى/أقل -->
-            <div id="choiceScreen" class="choice-buttons">
-                <div class="choice-button" onclick="submitGuess('higher')">أعلى</div>
-                <div class="choice-button" onclick="submitGuess('lower')">أقل</div>
+                <!-- النتيجة وزر السؤال التالي -->
+                <div id="result" class="result">
+                    <!-- سيتم إدراج رسالة النتيجة هنا -->
+                </div>
+                <button id="nextQuestionButton" class="next-question-btn" onclick="nextQuestion()">السؤال التالي</button>
             </div>
-
-            <!-- النتيجة وزر السؤال التالي -->
-            <div id="result" class="result">
-                <!-- سيتم إدراج رسالة النتيجة هنا -->
-            </div>
-            <button id="nextQuestionButton" class="next-question-btn" onclick="nextQuestion()">السؤال التالي</button>
         </div>
-    </div>
 
-    <!-- النتائج النهائية -->
-    <div id="endScreen" class="screen">
-        <div class="game-container">
-            <img src="logo.png" alt="كم النسبة؟" class="logo">
-            <h2 class="titles">النتائج النهائية</h2>
-            <div id="finalResults" class="final-results">
-                <!-- Final results will be displayed here -->
+        <!-- النتائج النهائية -->
+        <div id="endScreen" class="screen">
+            <div class="game-container">
+                <img src="assets/logo.png" alt="كم النسبة؟" class="logo">
+                <h2 class="titles">النتائج النهائية</h2>
+                <div id="finalResults" class="final-results">
+                    <!-- Final results will be displayed here -->
+                </div>
+                <button onclick="restartGame()">إعادة بدء اللعبة</button>
             </div>
-            <button onclick="restartGame()">إعادة بدء اللعبة</button>
         </div>
-    </div>
 
-    <script src="script.js"></script>
-</body>
+        <script src="script.js"></script>
+    </body>
 </html>
