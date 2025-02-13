@@ -212,6 +212,9 @@ function togglePhaseDisplays() {
         gameState.currentPhase === 'guess' ? 'flex' : 'none';
 }
 
+// Track if the ticking sound is currently playing
+let isTickingSoundPlaying = false;
+
 // وظائف المؤقت
 function startTimer() {
     let timeLimit = 30; // الوقت الافتراضي الآن 30 ثانية
@@ -230,8 +233,9 @@ function startTimer() {
         timeLeft--;
         document.getElementById('timer').innerText = timeLeft;
 
+        // تشغيل صوت التوقيت عند الوصول إلى أقل من 10 ثوانٍ
         if (timeLeft <= 10) {
-            playSound('timerTickingSound'); // تشغيل صوت المؤقت عند نفاد الوقت
+            playTickingSound();
         }
 
         if (timeLeft <= 0) {
@@ -241,9 +245,32 @@ function startTimer() {
         }
     }, 1000);
 }
+// تشغيل صوت التوقيت مع منع التكرار
+function playTickingSound() {
+    const tickingSound = document.getElementById('timerTickingSound');
+    if (!isTickingSoundPlaying && tickingSound) {
+        isTickingSoundPlaying = true; // تعيين العلم على "قيد التشغيل"
+        tickingSound.currentTime = 0; // إعادة ضبط الصوت إلى البداية
+        tickingSound.play().catch(error => {
+            console.error('خطأ في تشغيل صوت التوقيت:', error);
+        });
 
+        // إعادة تعيين العلم بعد انتهاء الصوت
+        tickingSound.onended = () => {
+            isTickingSoundPlaying = false;
+        };
+    }
+}
+
+// إيقاف المؤقت والصوت عند الانتقال إلى السؤال التالي
 function stopTimer() {
-    clearInterval(timer); // مسح المؤقت لمنع الفواصل الزمنية المتعددة
+    clearInterval(timer); // إيقاف المؤقت
+    const tickingSound = document.getElementById('timerTickingSound');
+    if (tickingSound) {
+        tickingSound.pause(); // إيقاف صوت التوقيت
+        tickingSound.currentTime = 0; // إعادة ضبط الصوت إلى البداية
+        isTickingSoundPlaying = false; // إعادة تعيين العلم
+    }
 }
 
 // تشغيل صوت
@@ -462,9 +489,18 @@ function endGame() {
     showScreen('endScreen');
 }
 
+// إيقاف جميع الأصوات
+function stopAllSounds() {
+    document.querySelectorAll('audio').forEach(audio => {
+        audio.pause(); // إيقاف الصوت
+        audio.currentTime = 0; // إعادة ضبط الصوت إلى البداية
+    });
+}
+
 // إعادة بدء اللعبة
 function restartGame() {
     playSound('buttonClickSound'); // تشغيل صوت النقر على الزر
+    stopAllSounds(); // إيقاف جميع الأصوات، بما في ذلك صوت نهاية اللعبة
     resetGameState();
     showScreen('mainMenu');
 }
