@@ -74,9 +74,17 @@ function showAboutUs() {
 }
 
 // العودة إلى القائمة الرئيسية
+function confirmReturnToMainMenu() {
+    const confirmation = confirm("هل أنت متأكد أنك تريد العودة إلى القائمة الرئيسية؟ سيتم فقدان التقدم الحالي.");
+    if (confirmation) {
+        returnToMainMenu();
+    }
+}
+
 function returnToMainMenu() {
-    playSound('buttonClickSound'); // تشغيل صوت النقر على الزر
-    showScreen('mainMenu');
+    // Logic to return to the main menu
+    document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active-screen'));
+    document.getElementById('mainMenu').classList.add('active-screen');
 }
 
 function showTeamSetup() {

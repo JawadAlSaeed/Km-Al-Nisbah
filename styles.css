@@ -383,7 +383,16 @@ button[onclick="returnToMainMenu()"] {
     margin-top: 2rem;
 }
 
+/* Back Button Styles */
+button[onclick="confirmReturnToMainMenu()"] {
+    background: #e74c3c;
+    margin-top: 2rem;
+}
+
 button[onclick="returnToMainMenu()"]:hover {
+    background: #c0392b;
+}
+button[onclick="confirmReturnToMainMenu()"]:hover {
     background: #c0392b;
 }
 
