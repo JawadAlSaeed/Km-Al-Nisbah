@@ -324,9 +324,45 @@ function submitPercentage() {
     togglePhaseDisplays();
     stopTimer(); // إيقاف المؤقت السابق
     startTimer(); // إعادة تشغيل المؤقت لمرحلة "التخمين"
+
+    // Update the selected percentage display
+    document.getElementById('selectedPercentage').textContent = `النسبة المختارة: ${gameState.currentPercentage}%`;
 }
 
 // معالجة التخمين
+function submitGuess(choice) {
+    let points = 1;
+    if (choice === 'muchHigher' || choice === 'muchLower') {
+        points = 2; // Double points for much higher or much lower
+    }
+
+    // existing logic to handle the guess
+    if (choice === 'higher' || choice === 'muchHigher') {
+        // logic for higher guess
+    } else if (choice === 'lower' || choice === 'muchLower') {
+        // logic for lower guess
+    }
+
+    // Update the score with the calculated points
+    if (isCorrectGuess(choice)) {
+        currentTeamScore += points;
+    } else {
+        currentTeamScore -= points;
+    }
+
+    // Update the UI with the new score
+    updateScoreDisplay();
+}
+
+function isCorrectGuess(choice) {
+    // Implement the logic to check if the guess is correct
+    // This function should return true if the guess is correct, otherwise false
+}
+
+function updateScoreDisplay() {
+    // Implement the logic to update the score display in the UI
+}
+
 function submitGuess(choice) {
     const currentQuestion = gameState.selectedQuestions[gameState.currentQuestionIndex];
     const correctAnswer = currentQuestion.answer;
