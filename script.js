@@ -7,33 +7,30 @@ let gameState = {
     currentPercentage: 50,
     questions: [],
     selectedQuestions: [],
-    selectedCategories: [], // تتبع الفئات المختارة
-    difficulty: 'medium' // إضافة مستوى الصعوبة
+    selectedCategories: [],
+    difficulty: 'medium'
 };
-
 
 // Initialize the Game
 document.addEventListener('DOMContentLoaded', () => {
     const splashScreen = document.getElementById('splashScreen');
     const splashVideo = document.getElementById('splashVideo');
 
-    // Transition to the main menu when the video ends
     splashVideo.addEventListener('ended', () => {
-        splashScreen.classList.remove('active-screen'); // Trigger fade-out
+        splashScreen.classList.remove('active-screen');
         setTimeout(() => {
-            showScreen('mainMenu'); // Show main menu after fade-out
-        }, 500); // Match this delay with the CSS transition duration
+            showScreen('mainMenu');
+        }, 500);
     });
 
-    // Optional: Fallback in case the video doesn't end properly
     setTimeout(() => {
         if (splashScreen.classList.contains('active-screen')) {
             splashScreen.classList.remove('active-screen');
             setTimeout(() => {
                 showScreen('mainMenu');
-            }, 500); // Match this delay with the CSS transition duration
+            }, 500);
         }
-    }, 10000); // 10 seconds fallback (adjust based on your video length)
+    }, 10000);
 });
 
 // إدارة الشاشات
@@ -44,7 +41,7 @@ function showScreen(screenId) {
 
 // متغيرات المؤقت
 let timer;
-let timeLeft = 30; // تغيير من 60 إلى 30 ثانية
+let timeLeft = 30;
 
 // عناصر DOM
 const nextQuestionButton = document.getElementById('nextQuestionButton');
@@ -57,19 +54,19 @@ function showScreen(screenId) {
 
 // عرض شاشة خيارات اللعبة
 function showGameOptions() {
-    playSound('buttonClickSound'); // تشغيل صوت النقر على الزر
+    playSound('buttonClickSound');
     showScreen('gameOptions');
 }
 
 // عرض شاشة الدليل التعليمي
 function showTutorial() {
-    playSound('buttonClickSound'); // تشغيل صوت النقر على الزر
+    playSound('buttonClickSound');
     showScreen('tutorialScreen');
 }
 
 // عرض شاشة حول اللعبة
 function showAboutUs() {
-    playSound('buttonClickSound'); // تشغيل صوت النقر على الزر
+    playSound('buttonClickSound');
     showScreen('aboutUsScreen');
 }
 
@@ -82,7 +79,6 @@ function confirmReturnToMainMenu() {
 }
 
 function returnToMainMenu() {
-    // Logic to return to the main menu
     document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active-screen'));
     document.getElementById('mainMenu').classList.add('active-screen');
 }
@@ -101,29 +97,27 @@ async function loadCategories() {
     try {
         const response = await fetch('config/questions.json');
         const data = await response.json();
-        const categories = [...new Set(data.map(q => q.category))]; // استخراج الفئات الفريدة
+        const categories = [...new Set(data.map(q => q.category))];
 
         const categoryList = document.getElementById('categoryList');
-        categoryList.innerHTML = ''; // مسح الفئات الحالية
+        categoryList.innerHTML = '';
 
         categories.forEach(category => {
             const categoryItem = document.createElement('div');
             categoryItem.className = 'category-item';
             categoryItem.textContent = category;
 
-            // إضافة خانة اختيار للتحديد المتعدد
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
             checkbox.value = category;
             checkbox.onchange = () => toggleCategorySelection(category, checkbox.checked);
             categoryItem.appendChild(checkbox);
 
-            // إضافة معاينة الفئة عند التمرير
             categoryItem.addEventListener('mouseenter', async () => {
                 try {
                     const response = await fetch('config/questions.json');
                     const data = await response.json();
-                    const previewQuestions = data.filter(q => q.category === category).slice(0, 3); // عرض 3 أسئلة
+                    const previewQuestions = data.filter(q => q.category === category).slice(0, 3);
                     categoryItem.title = previewQuestions.map(q => q.question).join('\n');
                 } catch (error) {
                     console.error('Error loading category preview:', error);
@@ -152,10 +146,9 @@ async function loadQuestions() {
         const response = await fetch('config/questions.json');
         const data = await response.json();
 
-        // تصفية الأسئلة حسب الفئات المختارة أو استخدام جميع الأسئلة
         gameState.questions = gameState.selectedCategories.length > 0
             ? data.filter(q => gameState.selectedCategories.includes(q.category))
-            : data; // إذا لم يتم اختيار أي فئات، استخدم جميع الأسئلة
+            : data;
     } catch (error) {
         console.error('Error loading questions:', error);
         alert('فشل في تحميل الأسئلة. سيتم استخدام الأسئلة الاحتياطية.');
@@ -204,7 +197,7 @@ function resetGameState() {
 
 // خيار اللعبة العشوائية
 function startRandomGame() {
-    gameState.selectedCategories = []; // لم يتم اختيار أي فئات محددة
+    gameState.selectedCategories = [];
     showTeamSetup();
 }
 
@@ -232,8 +225,8 @@ function setupNewRound() {
     updateActiveTeamDisplay();
     togglePhaseDisplays();
     resetButtons();
-    stopTimer(); // تأكد من عدم وجود مؤقت متبقي من الجولة السابقة
-    startTimer(); // ابدأ مؤقت جديد للجولة الجديدة
+    stopTimer();
+    startTimer();
 }
 
 function updateActiveTeamDisplay() {
@@ -256,23 +249,22 @@ let isTickingSoundPlaying = false;
 
 // وظائف المؤقت
 function startTimer() {
-    let timeLimit = 30; // الوقت الافتراضي الآن 30 ثانية
+    let timeLimit = 30;
     if (gameState.difficulty === 'easy') {
-        timeLimit = 45; // تعديل للصعوبة السهلة
+        timeLimit = 45;
     } else if (gameState.difficulty === 'hard') {
-        timeLimit = 20; // تعديل للصعوبة الصعبة
+        timeLimit = 20;
     }
 
-    timeLeft = timeLimit; // إعادة تعيين المؤقت إلى الحد الزمني الجديد
+    timeLeft = timeLimit;
     document.getElementById('timer').innerText = timeLeft;
 
-    stopTimer(); // تأكد من مسح أي مؤقت موجود قبل بدء مؤقت جديد
+    stopTimer();
 
     timer = setInterval(() => {
         timeLeft--;
         document.getElementById('timer').innerText = timeLeft;
 
-        // تشغيل صوت التوقيت عند الوصول إلى أقل من 10 ثوانٍ
         if (timeLeft <= 10) {
             playTickingSound();
         }
@@ -284,91 +276,52 @@ function startTimer() {
         }
     }, 1000);
 }
-// تشغيل صوت التوقيت مع منع التكرار
+
 function playTickingSound() {
     const tickingSound = document.getElementById('timerTickingSound');
     if (!isTickingSoundPlaying && tickingSound) {
-        isTickingSoundPlaying = true; // تعيين العلم على "قيد التشغيل"
-        tickingSound.currentTime = 0; // إعادة ضبط الصوت إلى البداية
+        isTickingSoundPlaying = true;
+        tickingSound.currentTime = 0;
         tickingSound.play().catch(error => {
             console.error('خطأ في تشغيل صوت التوقيت:', error);
         });
 
-        // إعادة تعيين العلم بعد انتهاء الصوت
         tickingSound.onended = () => {
             isTickingSoundPlaying = false;
         };
     }
 }
 
-// إيقاف المؤقت والصوت عند الانتقال إلى السؤال التالي
 function stopTimer() {
-    clearInterval(timer); // إيقاف المؤقت
+    clearInterval(timer);
     const tickingSound = document.getElementById('timerTickingSound');
     if (tickingSound) {
-        tickingSound.pause(); // إيقاف صوت التوقيت
-        tickingSound.currentTime = 0; // إعادة ضبط الصوت إلى البداية
-        isTickingSoundPlaying = false; // إعادة تعيين العلم
+        tickingSound.pause();
+        tickingSound.currentTime = 0;
+        isTickingSoundPlaying = false;
     }
 }
 
-// تشغيل صوت
 function playSound(soundId) {
     const audio = document.getElementById(soundId);
     if (audio) {
-        audio.currentTime = 0; // إعادة ضبط الصوت إلى البداية
+        audio.currentTime = 0;
         audio.play().catch(error => {
             console.error('خطأ في تشغيل الصوت:', error);
         });
     }
 }
 
-// تقديم النسبة
 function submitPercentage() {
-    playSound('buttonClickSound'); // تشغيل صوت النقر على الزر
+    playSound('buttonClickSound');
     gameState.currentPercentage = parseInt(document.getElementById('hiddenSlider').value);
     gameState.currentPhase = 'guess';
     updateActiveTeamDisplay();
     togglePhaseDisplays();
-    stopTimer(); // إيقاف المؤقت السابق
-    startTimer(); // إعادة تشغيل المؤقت لمرحلة "التخمين"
+    stopTimer();
+    startTimer();
 
-    // Update the selected percentage display
     document.getElementById('selectedPercentage').textContent = `النسبة المختارة: ${gameState.currentPercentage}%`;
-}
-
-// معالجة التخمين
-function submitGuess(choice) {
-    let points = 1;
-    if (choice === 'muchHigher' || choice === 'muchLower') {
-        points = 2; // Double points for much higher or much lower
-    }
-
-    // existing logic to handle the guess
-    if (choice === 'higher' || choice === 'muchHigher') {
-        // logic for higher guess
-    } else if (choice === 'lower' || choice === 'muchLower') {
-        // logic for lower guess
-    }
-
-    // Update the score with the calculated points
-    if (isCorrectGuess(choice)) {
-        currentTeamScore += points;
-    } else {
-        currentTeamScore -= points;
-    }
-
-    // Update the UI with the new score
-    updateScoreDisplay();
-}
-
-function isCorrectGuess(choice) {
-    // Implement the logic to check if the guess is correct
-    // This function should return true if the guess is correct, otherwise false
-}
-
-function updateScoreDisplay() {
-    // Implement the logic to update the score display in the UI
 }
 
 function submitGuess(choice) {
@@ -376,21 +329,20 @@ function submitGuess(choice) {
     const correctAnswer = currentQuestion.answer;
     const { setterTeam, guesserTeam } = getCurrentTeams();
 
-    disableChoiceButtons(); // تعطيل الأزرار لمنع المزيد من الإدخال
-    stopTimer(); // إيقاف المؤقت فورًا بعد تقديم التخمين
+    disableChoiceButtons();
+    stopTimer();
 
     const points = calculatePoints(choice, correctAnswer, setterTeam, guesserTeam);
     updateScores();
 
     if (points.pointsGuessing > 0) {
-        playSound('correctGuessSound'); // تشغيل صوت الإجابة الصحيحة
+        playSound('correctGuessSound');
     } else {
-        playSound('wrongGuessSound'); // تشغيل صوت الإجابة الخاطئة
+        playSound('wrongGuessSound');
     }
 
     showResult(correctAnswer, points);
 
-    // عرض زر السؤال التالي بعد ثانية واحدة
     setTimeout(() => {
         showNextQuestionButton();
     }, 1000);
@@ -408,8 +360,7 @@ function calculatePoints(choice, correctAnswer, setterTeam, guesserTeam) {
     const guessedValue = choice === 'higher' ? gameState.currentPercentage + 1 : gameState.currentPercentage - 1;
     const differenceGuessing = Math.abs(correctAnswer - guessedValue);
 
-    // مكافأة للإجابات الأسرع
-    const timeBonus = Math.floor(timeLeft / 10); // نقاط المكافأة بناءً على الوقت المتبقي
+    const timeBonus = Math.floor(timeLeft / 10);
     const pointsSetting = Math.max(0, 100 - differenceSetting) + timeBonus;
     const pointsGuessing = differenceGuessing < differenceSetting ? 50 + timeBonus : 0;
 
@@ -431,17 +382,15 @@ function showResult(correctAnswer, points) {
     resultDiv.className = 'result correct';
 }
 
-// التنقل
 function nextQuestion() {
     gameState.currentQuestionIndex++;
     gameState.currentPhase = 'percentage';
 
-    // تبديل الأدوار: يصبح المحدد الحالي هو المخمن، والعكس صحيح
     [gameState.currentSetterIndex, gameState.currentGuesserIndex] = 
         [gameState.currentGuesserIndex, gameState.currentSetterIndex];
 
     resetRoundState();
-    stopTimer(); // إيقاف المؤقت قبل إعداد جولة جديدة
+    stopTimer();
     setupNewRound();
 }
 
@@ -453,7 +402,6 @@ function resetRoundState() {
     nextQuestionButton.classList.remove('visible');
 }
 
-// مساعدي واجهة المستخدم
 function updateTeamNames() {
     document.getElementById('team1Name').textContent = gameState.teams[0].name;
     document.getElementById('team2Name').textContent = gameState.teams[1].name;
@@ -482,7 +430,6 @@ function showNextQuestionButton() {
     nextQuestionButton.classList.add('visible');
 }
 
-// منطق العداد
 function updateMeter(value) {
     const meter = document.querySelector('.meter-background');
     const percentageDisplay = document.getElementById('percentage');
@@ -493,7 +440,6 @@ function updateMeter(value) {
     thumb.style.transform = `translateX(-50%) rotate(${value * 3.6}deg)`;
 }
 
-// معالجة الإدخال
 const container = document.querySelector('.meter-container');
 const slider = document.getElementById('hiddenSlider');
 let isDragging = false;
@@ -535,7 +481,6 @@ function handleInput(e) {
     updateMeter(value);
 }
 
-// إنهاء اللعبة
 function endGame() {
     const [team1, team2] = gameState.teams;
     let winner = '';
@@ -551,7 +496,6 @@ function endGame() {
         message = 'تعادل! لا يوجد فائز. 👏';
     }
 
-    // عرض النتائج النهائية على شاشة النهاية
     const finalResultsDiv = document.getElementById('finalResults');
     finalResultsDiv.innerHTML = `
         <h3>${message}</h3>
@@ -560,30 +504,26 @@ function endGame() {
         <p>${team2.name}: ${team2.score} نقطة</p>
     `;
 
-    playSound('gameEndSound'); // تشغيل صوت نهاية اللعبة
+    playSound('gameEndSound');
     showScreen('endScreen');
 }
 
-// إيقاف جميع الأصوات
 function stopAllSounds() {
     document.querySelectorAll('audio').forEach(audio => {
-        audio.pause(); // إيقاف الصوت
-        audio.currentTime = 0; // إعادة ضبط الصوت إلى البداية
+        audio.pause();
+        audio.currentTime = 0;
     });
 }
 
-// إعادة بدء اللعبة
 function restartGame() {
-    playSound('buttonClickSound'); // تشغيل صوت النقر على الزر
-    stopAllSounds(); // إيقاف جميع الأصوات، بما في ذلك صوت نهاية اللعبة
+    playSound('buttonClickSound');
+    stopAllSounds();
     resetGameState();
     showScreen('mainMenu');
 }
 
-// تهيئة
 updateMeter(50);
 
-// الأسئلة الاحتياطية
 const backupQuestions = [
     {
         "question": "ما نسبة الناس الذين يفضلون الشاي على القهوة؟",
